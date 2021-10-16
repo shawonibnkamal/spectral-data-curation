@@ -1,6 +1,10 @@
 import os
 import csv
 
+# Create a folder named OutputFiles
+if not os.path.exists("OutputFiles"):
+    os.makedirs("OutputFiles")
+
 
 def patch_name(a):
     if a == "H":
@@ -33,9 +37,9 @@ with open('template.csv', newline='') as templateCsvFile:
     data = list(reader)
 
 # opens a csv for filenames that do not have a meta data
-notMatchedCsvFile = open('OutputFiles/NotMatched.csv', 'w', newline='')
-notmatched = csv.writer(notMatchedCsvFile)
-notmatched.writerow(['notmatched'])
+missingMetaCsvFile = open('OutputFiles/MissingMeta.csv', 'w', newline='')
+missingMeta = csv.writer(missingMetaCsvFile)
+missingMeta.writerow(['missingMeta'])
 
 # counts
 matchFound = 0
@@ -62,7 +66,7 @@ def compareWithTemplate(writer, patch, id, replicate, filename, modify):
 
     if(matchBool == False):  # if match not found
         matchNotFound += 1
-        notmatched.writerow([filename])  # add filename to NotMatched.csv
+        missingMeta.writerow([filename])  # add filename to MissingMeta.csv
 
     for j in missingFiles:
         templateId = j[1]+j[3]
@@ -121,4 +125,4 @@ print("Complete")
 templateCsvFile.close()
 resultCsvFile.close()
 missingFilesCsv.close()
-notMatchedCsvFile.close()
+missingMetaCsvFile.close()
