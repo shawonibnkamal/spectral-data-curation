@@ -33,7 +33,7 @@ with open('template.csv', newline='') as templateCsvFile:
     data = list(reader)
 
 # opens a csv for filenames that do not have a meta data
-notMatchedCsvFile = open('NotMatched.csv', 'w', newline='')
+notMatchedCsvFile = open('OutputFiles/NotMatched.csv', 'w', newline='')
 notmatched = csv.writer(notMatchedCsvFile)
 notmatched.writerow(['notmatched'])
 
@@ -71,7 +71,7 @@ def compareWithTemplate(writer, patch, id, replicate, filename, modify):
             exit
 
 
-with open('Result.csv', 'w', newline='') as resultCsvFile:
+with open('OutputFiles/Result.csv', 'w', newline='') as resultCsvFile:
     writer = csv.writer(resultCsvFile)
     writer.writerow(data[0])
 
@@ -108,7 +108,7 @@ with open('Result.csv', 'w', newline='') as resultCsvFile:
 
         compareWithTemplate(writer, patch, id, replicate, filenames[i], modify)
 
-with open('MissingFiles.csv', 'w', newline='') as missingFilesCsv:
+with open('OutputFiles/MissingFiles.csv', 'w', newline='') as missingFilesCsv:
     missingFilesWriter = csv.writer(missingFilesCsv)
     for row in missingFiles:
         missingFilesWriter.writerow(row)
