@@ -39,7 +39,7 @@ with open('template.csv', newline='') as templateCsvFile:
 # opens a csv for filenames that do not have a meta data
 missingMetaCsvFile = open('OutputFiles/MissingMeta.csv', 'w', newline='')
 missingMeta = csv.writer(missingMetaCsvFile)
-missingMeta.writerow(['missingMeta'])
+missingMeta.writerow(['notmatched'])
 
 # counts
 matchFound = 0
