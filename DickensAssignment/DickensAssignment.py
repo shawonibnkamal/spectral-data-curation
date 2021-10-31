@@ -1,9 +1,13 @@
 import os
 import csv
+from shutil import copy2
 
 # Create a folder named OutputFiles
 if not os.path.exists("OutputFiles"):
     os.makedirs("OutputFiles")
+
+if not os.path.exists("DataFilesOutput"):
+    os.makedirs("DataFilesOutput")
 
 
 def patch_name(a):
@@ -29,7 +33,15 @@ def patch_name(a):
 filenames = [name for path, subdirs, files in os.walk("DataFiles")
              for name in files]
 
+paths = dict()
+
 print(len(filenames), "no. of files")
+
+# Store path for files
+for subdir, dirs, files in os.walk("DataFiles"):
+    for file in files:
+        filepath = subdir + os.sep + file
+        paths[file] = filepath
 
 # opens the csv of meta data and stores it in list data
 with open('template.csv', newline='') as templateCsvFile:
@@ -62,6 +74,7 @@ def compareWithTemplate(writer, patch, id, replicate, filename, modify):
             i[20] = patch_name(patch)
             i[25] = replicate
             writer.writerow(i)  # add infos and write it to Result.csv
+            copy2(paths[filename], "DataFilesOutput/"+filename)
             exit
 
     if(matchBool == False):  # if match not found
